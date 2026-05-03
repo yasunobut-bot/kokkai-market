@@ -10,8 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
 
-      - run: git log --oneline -3 && cat src/rakuten.py | head -5
+      - run: git log --oneline -3 && head -5 src/rakuten.py && head -20 main.py
 
       - uses: actions/setup-python@v5
         with:
