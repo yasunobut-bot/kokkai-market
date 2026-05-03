@@ -63,7 +63,7 @@ def fetch_weekly_keywords(top_n: int = 10) -> list[dict]:
         max_tokens=500,
         messages=[{
             "role": "user",
-            "content": EXTRACT_PROMPT.format(text=combined_text),
+            "content": EXTRACT_PROMPT.replace("{text}", combined_text),
         }],
     )
 
