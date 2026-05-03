@@ -1,0 +1,6 @@
+.env
+data/draft.json
+data/history/
+__pycache__/
+*.pyc
+.DS_Store

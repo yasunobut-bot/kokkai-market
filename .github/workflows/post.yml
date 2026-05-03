@@ -1,0 +1,32 @@
+name: 投稿する（手動）
+
+on:
+  workflow_dispatch:  # GitHubの画面から手動実行のみ
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: draft
+          path: data/
+
+      - run: python main.py post
+        env:
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_SECRET: ${{ secrets.X_API_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_SECRET: ${{ secrets.X_ACCESS_SECRET }}
+          X_EN_API_KEY: ${{ secrets.X_EN_API_KEY }}
+          X_EN_API_SECRET: ${{ secrets.X_EN_API_SECRET }}
+          X_EN_ACCESS_TOKEN: ${{ secrets.X_EN_ACCESS_TOKEN }}
+          X_EN_ACCESS_SECRET: ${{ secrets.X_EN_ACCESS_SECRET }}
