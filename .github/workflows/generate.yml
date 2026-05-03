@@ -5,16 +5,22 @@ on:
     - cron: "0 0 * * 5"  # 毎週金曜 09:00 JST
   workflow_dispatch:       # 手動実行も可能
 
+permissions:
+  contents: read
+
 jobs:
   generate:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: main
-          fetch-depth: 0
-
-      - run: git log --oneline -3 && head -5 src/rakuten.py && head -20 main.py
+      - name: Checkout latest code
+        run: |
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/yasunobut-bot/kokkai-market.git .
+          echo "--- git log ---"
+          git log --oneline -5
+          echo "--- rakuten.py line 31 ---"
+          sed -n '31p' src/rakuten.py
+          echo "--- main.py line 1-5 ---"
+          head -5 main.py
 
       - uses: actions/setup-python@v5
         with:
