@@ -1,19 +1,8 @@
 import json
 import os
 import smtplib
-import subprocess
 import sys
 from datetime import datetime
-
-print("=== VERSION CHECK ===")
-try:
-    result = subprocess.run(["git", "log", "--oneline", "-3"], capture_output=True, text=True)
-    print(result.stdout)
-    with open("src/rakuten.py") as f:
-        print("rakuten.py line 31:", f.readlines()[30].rstrip())
-except Exception as e:
-    print(f"version check error: {e}")
-print("=====================")
 from email.mime.text import MIMEText
 from pathlib import Path
 
